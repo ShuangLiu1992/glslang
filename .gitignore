@@ -22,3 +22,4 @@ tools/
 # Random OS stuff
 .DS_Store
 ._*
+/CMakeUserPresets.json

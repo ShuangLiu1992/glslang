@@ -32,6 +32,9 @@
 # POSSIBILITY OF SUCH DAMAGE.
 cmake_minimum_required(VERSION 3.14.0)
 project(glslang)
+find_package(SPIRV-Tools REQUIRED)
+find_package(SPIRV-Tools-opt REQUIRED)
+link_libraries(SPIRV-Tools-static SPIRV-Tools-opt)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
