@@ -13,6 +13,9 @@ class GLSLANGConan(ConanFile):
     def requirements(self):
         self.requires(f"spirv_tools/{self.version}@")
 
+    def export_sources(self):
+        conan.tools.files.copy(self, "*", self.recipe_folder, self.export_sources_folder)
+
     def generate(self):
         tc = CMakeToolchain(self)
         tc.presets_prefix = f"{self.settings.os}_{self.settings.build_type}_{self.settings.arch}"
@@ -20,11 +23,13 @@ class GLSLANGConan(ConanFile):
         tc.variables["ENABLE_HLSL"] = True
         tc.generate()
 
-    def package(self):
+    def build(self):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
         cmake.install()
+
+    def package(self):
         os.makedirs(f"{self.package_folder}/include/External")
 
     def package_info(self):
